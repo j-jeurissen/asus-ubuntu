@@ -1,4 +1,13 @@
 #!/bin/bash
+# Configuration variables
+
+ASUSCTL_VERSION="6.1.12"
+SUPERGFXCTL_VERSION="5.2.7"
+
+# Builder script for ASUS Ubuntu packages
+# This script builds the asusctl and supergfxctl packages for Ubuntu 24.04
+# It uses Docker to create a clean build environment and packages the applications into .deb files.
+
 set -euo pipefail
 cd $(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
 
@@ -84,7 +93,7 @@ function build_package() {
 # Build asusctl package
 build_package "asusctl" \
 "https://gitlab.com/asus-linux/asusctl.git" \
-"6.0.12" \
+"$ASUSCTL_VERSION" \
 "libasound2-dev libfreetype6-dev libexpat1-dev libxcb-composite0-dev libssl-dev \
 libx11-dev libfontconfig1-dev libclang-dev libseat-dev libinput-dev libxkbcommon-dev \
 libgbm-dev libgtk-3-dev libpango1.0-dev libgdk-pixbuf-2.0-dev libglib2.0-dev" \
@@ -94,7 +103,7 @@ libgbm-dev libgtk-3-dev libpango1.0-dev libgdk-pixbuf-2.0-dev libglib2.0-dev" \
 # Build supergfxctl package
 build_package "supergfxctl" \
 "https://gitlab.com/asus-linux/supergfxctl.git" \
-"5.2.4" \
+"$SUPERGFXCTL_VERSION" \
 "libudev-dev" \
 "$(cat <<SUPERGFXCTL
 RUN make DESTDIR=/target install && mkdir -p /target/etc/modprobe.d/ && cat <<MODPROBE >> /target/etc/modprobe.d/supergfxd.conf
