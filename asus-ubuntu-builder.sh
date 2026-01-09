@@ -35,7 +35,7 @@ function create_dockerfile() {
   local additional_files="$6"
   
   cat <<EOF >Dockerfile
-ARG UBUNTU_VERSION="24.04"
+ARG UBUNTU_VERSION="25.10"
 
 FROM ubuntu:\${UBUNTU_VERSION}
 
